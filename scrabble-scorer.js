@@ -58,7 +58,7 @@ function vowelBonusScorer(word) {
    return score
 };
 
-function scrabbleScorer() {
+function scrabbleScorer(word) {
    let score = 0
    word = word.toUpperCase();
    for(let i = 0; i < word.length; i++) {
