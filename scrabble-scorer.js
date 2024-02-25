@@ -12,22 +12,22 @@ const oldPointStructure = {
    10: ['Q', 'Z']
  };
 
-// function oldScrabbleScorer() {
-// 	word = word.toUpperCase();
-// 	let letterPoints = "";
+function oldScrabbleScorer(word) {
+	word = word.toUpperCase();
+	let letterPoints = "";
  
-// 	for (let i = 0; i < word.length; i++) {
+	for (let i = 0; i < word.length; i++) {
  
-// 	  for (const pointValue in oldPointStructure) {
+	  for (const pointValue in oldPointStructure) {
  
-// 		 if (oldPointStructure[pointValue].includes(word[i])) {
-// 			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
-// 		 }
+		 if (oldPointStructure[pointValue].includes(word[i])) {
+			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+		 }
  
-// 	  }
-// 	}
-// 	return letterPoints;
-//  }
+	  }
+	}
+	return letterPoints;
+ }
  
 let word = '';
 
@@ -36,12 +36,15 @@ function initialPrompt() {
  return word
 };
 
-function simpleScorer() {
-   let score = word.length
+ function simpleScorer(word) {
+   let score = 0
+   for (let i = 0; i < word.length; i++) {
+      score++;
+   }
    return score
 };
 
-function vowelBonusScorer() {
+function vowelBonusScorer(word) {
    let vowels = ['A', 'E', 'I', 'O', 'U'];
    let score = 0;
    word = word.toUpperCase()
@@ -55,7 +58,7 @@ function vowelBonusScorer() {
    return score
 };
 
-function scrabbleScorer() {
+let scrabbleScorer = function(word) {
    let score = 0
    word = word.toUpperCase();
    for(let i = 0; i < word.length; i++) {
