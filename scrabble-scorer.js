@@ -1,5 +1,3 @@
-// This assignment is inspired by a problem on Exercism (https://exercism.org/tracks/javascript/exercises/etl) that demonstrates Extract-Transform-Load using Scrabble's scoring system. 
-
 const input = require("readline-sync");
 
 const oldPointStructure = {
@@ -36,7 +34,7 @@ function initialPrompt() {
  return word
 };
 
- function simpleScorer() {
+ function simpleScorer(word) {
    let score = 0
    for (let i = 0; i < word.length; i++) {
       score++;
@@ -44,7 +42,7 @@ function initialPrompt() {
    return score
 };
 
-function vowelBonusScorer() {
+function vowelBonusScorer(word) {
    let vowels = ['A', 'E', 'I', 'O', 'U'];
    let score = 0;
    word = word.toUpperCase()
@@ -58,14 +56,18 @@ function vowelBonusScorer() {
    return score
 };
 
-function scrabbleScorer() {
-   let score = 0
-   word = word.toUpperCase();
-   for(let i = 0; i < word.length; i++) {
-      score += newPointStructure[word[i]];
+function scrabbleScorer(word) {
+   let score = 0;
+   word = word.toLowerCase();
+   for (let i = 0; i < word.length; i++) {
+      let letter = word[i];
+   if (newPointStructure.hasOwnProperty(letter)) {
+         score += newPointStructure[letter];
+      }
    }
-   return score
+   return score;
 };
+
 
 const scoringAlgorithms = [{name: 'Simple Scorer', description: 'Each letter is worth 1 point.', scorerFunction: simpleScorer}, {name: 'Bonus Vowels', description: 'Vowels are 3pts, consonants are 1 pt.', scorerFunction: vowelBonusScorer}, {name: 'Scrabble', description: 'The traditional scoring algorithm.', scorerFunction: scrabbleScorer}];
 
@@ -78,9 +80,9 @@ function scorerPrompt() {
       if(scoringChoice === 0) {
    console.log(`Algorithm Name: ${scoringAlgorithms[0].name}\nScoring Result for "${word}": ${scoringAlgorithms[0].scorerFunction()}`)
       } else if (scoringChoice === 1) {
-         console.log(`Algorithm Name: ${scoringAlgorithms[0].name}\nScoring Result for "${word}": ${scoringAlgorithms[1].scorerFunction()}`)
+         console.log(`Algorithm Name: ${scoringAlgorithms[1].name}\nScoring Result for "${word}": ${scoringAlgorithms[1].scorerFunction()}`)
       } else if (scoringChoice === 2) {
-         console.log(`Algorithm Name: ${scoringAlgorithms[0].name}\nScoring Result for "${word}": ${scoringAlgorithms[2].scorerFunction()}`)
+         console.log(`Algorithm Name: ${scoringAlgorithms[2].name}\nScoring Result for "${word}": ${scoringAlgorithms[2].scorerFunction()}`)
       } else {
          console.log("Invalid input. Please try again.")
       }
@@ -88,27 +90,29 @@ function scorerPrompt() {
 }
 
 
-function transform(oldPointStructure) {
-   let newPointStructure = {};
-   for (key in oldPointStructure) {
-      let value = oldPointStructure[key]
-      for (i = 0; i < value.length; i++) {
-         newPointStructure[oldPointStructure[key][i].toLowerCase()] = Number(key);
-      }
-   }
-   return newPointStructure;
-};
+function transform(ogPointStructure) {
+   let newLetterKeys = {};
+   for (key in ogPointStructure) {
+     let oldKeys = ogPointStructure[key];
+     for(i=0; i < oldKeys.length; i++) {
+       newLetterKeys[oldKeys[i].toLowerCase()] = Number(key);
+       }
+   }        
+   return newLetterKeys
+ }
 
 let newPointStructure = transform(oldPointStructure)
+console.log(newPointStructure.hasOwnProperty('F'));
 
 
 function runProgram() {
    initialPrompt();
    scorerPrompt(word); 
+
 }
 
-// Don't write any code below this line //
-// And don't change these or your program will not run as expected //
+
+
 module.exports = {
    initialPrompt: initialPrompt,
    transform: transform,
