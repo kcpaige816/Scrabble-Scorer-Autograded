@@ -78,11 +78,11 @@ function scorerPrompt() {
    }
    let scoringChoice = Number(input.question(`\nEnter 0, 1, or 2: `));
       if(scoringChoice === 0) {
-   console.log(`Algorithm Name: ${scoringAlgorithms[0].name}\nScoring Result for "${word}": ${scoringAlgorithms[0].scorerFunction()}`)
+   console.log(`Algorithm Name: ${scoringAlgorithms[0].name}\nScoring Result for "${word}": ${scoringAlgorithms[0].scorerFunction(word)}`)
       } else if (scoringChoice === 1) {
-         console.log(`Algorithm Name: ${scoringAlgorithms[1].name}\nScoring Result for "${word}": ${scoringAlgorithms[1].scorerFunction()}`)
+         console.log(`Algorithm Name: ${scoringAlgorithms[1].name}\nScoring Result for "${word}": ${scoringAlgorithms[1].scorerFunction(word)}`)
       } else if (scoringChoice === 2) {
-         console.log(`Algorithm Name: ${scoringAlgorithms[2].name}\nScoring Result for "${word}": ${scoringAlgorithms[2].scorerFunction()}`)
+         console.log(`Algorithm Name: ${scoringAlgorithms[2].name}\nScoring Result for "${word}": ${scoringAlgorithms[2].scorerFunction(word)}`)
       } else {
          console.log("Invalid input. Please try again.")
       }
@@ -102,12 +102,12 @@ function transform(ogPointStructure) {
  }
 
 let newPointStructure = transform(oldPointStructure)
-console.log(newPointStructure.hasOwnProperty('F'));
+
 
 
 function runProgram() {
    initialPrompt();
-   scorerPrompt(word); 
+   scorerPrompt(); 
 
 }
 
